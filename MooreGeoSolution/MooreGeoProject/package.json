@@ -1,0 +1,9 @@
+{
+  "name": "moore-geo-project",
+  "version": "0.0.0",
+  "description": "MooreGeoProject",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  }
+}
