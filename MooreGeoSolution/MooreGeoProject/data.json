@@ -1,1 +1,24 @@
-{}
+{
+  "scores": [
+    {
+      "nick": "Chris",
+      "score": "5000"
+    },
+    {
+      "nick": "Flix",
+      "score": "2340"
+    },
+    {
+      "nick": "Foo",
+      "score": "42"
+    },
+    {
+      "nick": "Nickme",
+      "score": "99"
+    },
+    {
+      "nick": "Juhu",
+      "score": "100"
+    }
+  ]
+}
