@@ -15,8 +15,9 @@ app.get('/api/scores', (req, res) => {
     res.sendFile(__dirname + '/data.json');
 });
 
-//app.get((req, res) => {
-//});
+app.get('/api/scores',(req, res) => {
+    
+});
 
 app.post('/api/scores', function (req, res) {
     db.get("scores")
