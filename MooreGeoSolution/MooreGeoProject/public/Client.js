@@ -21,22 +21,41 @@ function spawnTarget() {
     document.getElementById("game").appendChild(targetContainer);
 }
 
+//function plotExponentialStep(x, k, n) {
+//    console.log(x + ":   " + Math.exp(-k * Math.pow(x, n)));
+//    return Math.exp(-k * Math.pow(x, n));
+//}
+
+function plot(x, period, amplitude) {
+    return Math.sin(x * period) * amplitude;
+}
+
+function generateWHY(x, rnd) {
+    return (plot(x, 0.01, 75 + rnd)
+        + plot(x, 0.02, 50 + rnd) * 0.25);
+}
+
 
 function myMove() {
-
-    console.log("wowowowoow");
     var elem = document.getElementById("test");
-    var pos = 0;
-    var id = setInterval(frame, 10);
-    function frame() {
-        if (pos == 350) {
+
+    var height = document.getElementById("game").clientHeight;
+    var x = 1.0;
+    var rnd = Math.random() * 50.0;
+
+    var intervalTimeInMS = 2;
+    var timer = 0;
+
+    var id = setInterval(() => {
+        if (timer >= 10000) {
             clearInterval(id);
         } else {
-            pos++;
-            elem.style.top = pos  + 'px';
-            elem.style.left = pos + 'px';
+            timer += intervalTimeInMS;
+            x+=0.5;
+            elem.style.top = generateWHY(x, rnd) + height*0.5 + 'px';
+            elem.style.left = x + 'px';
         }
-    }
+    }, intervalTimeInMS);
 }
 
 function onTargetHit(event) {
