@@ -6,7 +6,7 @@ window.onload = initialize;
 
 var num = 0;
 
-function spawnTarget() {
+function spawnTargetOLD() {
     // object.style.animation = "name duration timingFunction delay iterationCount direction fillMode playState" 
 
     var target = document.createElement("div");
@@ -14,6 +14,14 @@ function spawnTarget() {
 
     target.addEventListener("click", onTargetHit);
     document.getElementById("game").appendChild(target); //targetContainer
+}
+
+function spawnTarget() {
+    var target = document.createElement("div");
+    target.id = "test";
+    target.addEventListener("click", onTargetHit);
+    document.getElementById("game").appendChild(target);
+    firstTargetMoveType(target);
 }
 
 function plot(x, period, amplitude) {
@@ -26,8 +34,9 @@ function generateWHY(x, rnd) {
 }
 
 
-function myMove() {
-    var elem = document.getElementById("test");
+function firstTargetMoveType(element) {
+
+    //var element = document.getElementById("test");
 
     var height = document.getElementById("game").clientHeight;
     var x = 1.0;
@@ -42,8 +51,8 @@ function myMove() {
         } else {
             timer += intervalTimeInMS;
             x+=0.5;
-            elem.style.top = generateWHY(x, rnd) + height*0.5 + 'px';
-            elem.style.left = x + 'px';
+            element.style.top = generateWHY(x, rnd) + height*0.5 + 'px';
+            element.style.left = x + 'px';
         }
     }, intervalTimeInMS);
 }
@@ -55,10 +64,10 @@ function onTargetHit(event) {
 
 
 function initialize() {
-    //spawnTarget();
-    spawnTarget()
+    spawnTarget();
+    //spawnTargetOLD();
 
-    document.getElementById("game").addEventListener("click", myMove);
+    document.getElementById("game").addEventListener("click", firstTargetMoveType);
 
 
     //while (gameloop) {
