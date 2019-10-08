@@ -8,23 +8,13 @@ var num = 0;
 
 function spawnTarget() {
     // object.style.animation = "name duration timingFunction delay iterationCount direction fillMode playState" 
-    
-    var targetContainer = document.createElement("div");
-    targetContainer.className = "targetContainer";
 
     var target = document.createElement("div");
     target.className = "target";
 
-    targetContainer.appendChild(target);
-
     target.addEventListener("click", onTargetHit);
-    document.getElementById("game").appendChild(targetContainer);
+    document.getElementById("game").appendChild(target); //targetContainer
 }
-
-//function plotExponentialStep(x, k, n) {
-//    console.log(x + ":   " + Math.exp(-k * Math.pow(x, n)));
-//    return Math.exp(-k * Math.pow(x, n));
-//}
 
 function plot(x, period, amplitude) {
     return Math.sin(x * period) * amplitude;
@@ -43,7 +33,7 @@ function myMove() {
     var x = 1.0;
     var rnd = Math.random() * 50.0;
 
-    var intervalTimeInMS = 2;
+    var intervalTimeInMS = 5;
     var timer = 0;
 
     var id = setInterval(() => {
