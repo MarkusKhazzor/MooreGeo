@@ -43,8 +43,6 @@ function firstTargetMoveType(element) {
 function onTargetHit(event) {
     console.log("I HIT IT! Current score: " + this.toString() +  "   " + ++myCurrentScore);
     this.parentNode.removeChild(this);
-
-    postScore();
 }
 
 
@@ -67,53 +65,43 @@ function postScore() {
     });
 }
 
+function tryToStartGame() {
 
-
-
-
-
-
-
-function update(progress) {
-    // Update the state of the world for the elapsed time since last render
-
+    fetch('/api/game')
+        
 }
 
-function draw() {
-    // Draw the state of the world
-}
 
-function loop(timestamp) {
-    var progress = timestamp - lastRender
+    
+//Mostly Deprecated
 
-    update(progress)
-    draw()
+//function update(progress) {
+//    // Update the state of the world for the elapsed time since last render
 
+//}
 
-    window.requestAnimationFrame(loop)
-}
-var lastRender = 0
-window.requestAnimationFrame(loop)
+//function draw() {
+//    // Draw the state of the world
+//}
 
+//function loop(timestamp) {
+//    var progress = timestamp - lastRender
 
-
-
-
+//    update(progress)
+//    draw()
 
 
-
-
-
-
+//    window.requestAnimationFrame(loop)
+//}
+//var lastRender = 0
+//window.requestAnimationFrame(loop)
 
 
 
-function function1(data) {
-    document.write(data.scores[0].nick)
-}
-function initializeAndFetchTest() {
-    //document.write("initialize it!");
+//STUFF TO THINK ABOUT
+    //var nun = (x) => x * x; --> C# tryen
 
+function initializeAndFetchTests() {
     //fetch('/api/scores')
     //    .then((res) => res.json()
     //        .then((data) => document.write(JSON.stringify(data))));
@@ -130,9 +118,7 @@ function initializeAndFetchTest() {
                 document.write(data.scores[0].nick)
             }));
 
-    
-
-    //fetch('/api/scores').
-
-    //var nun = (x) => x * x; --> C# tryen
+    function function1(data) {
+        document.write(data.scores[0].nick)
+    }
 }
