@@ -1,2 +1,3 @@
 D:\Users\kuehn\Desktop\VerteilteArchitektur\Game3\MooreGeo\MooreGeoSolution\MooreGeoProject\obj\Debug\MooreGeoProject.njsprojAssemblyReference.cache
 D:\Users\kuehn\Desktop\VerteilteArchitektur\Game3\MooreGeo\MooreGeoSolution\MooreGeoProject\bin\Microsoft.NodejsTools.WebRole.dll
+D:\Programming\Projects\MooreGeo\MooreGeoSolution\MooreGeoProject\bin\Microsoft.NodejsTools.WebRole.dll

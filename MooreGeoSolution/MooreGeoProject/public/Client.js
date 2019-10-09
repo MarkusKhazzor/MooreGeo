@@ -1,4 +1,5 @@
 window.onload = initialize;
+
 var myNickName = "SSIO";
 var myCurrentScore = 0;
 var timerStart;
