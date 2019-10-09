@@ -16,6 +16,17 @@ div#game {
     
 }
 
+#timer {
+    text-align: left;
+    font-size: 200%;
+    font-family: Impact;
+    padding-left: 45%; /*Hard coded --> to be improved*/
+}
+
+#centered {
+    /*padding-left: 45%; /*Hard coded --> to be improved*/
+}
+
 #test {
     width: 15px;
     height: 15px;

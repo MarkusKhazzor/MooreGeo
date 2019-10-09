@@ -1,6 +1,8 @@
 window.onload = initialize;
 var myNickName = "SSIO";
 var myCurrentScore = 0;
+var timerStart;
+
 
 function spawnTarget() {
     var target = document.createElement("div");
@@ -54,12 +56,12 @@ function initialize() {
 }
 
 
-function postScore() {
-    var jsonObj = { "nick": myNickName, "score": myCurrentScore } //maybe stringify current score?
+function tryToSubmitScore() {
+    var scoreJsonObj = { "nick": myNickName, "score": myCurrentScore }; //maybe stringify current score?
 
     fetch('/api/score', {
-        method: 'POST', // or 'PUT'
-        body: JSON.stringify(jsonObj),
+        method: 'POST',
+        body: JSON.stringify(scoreJsonObj),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -95,10 +97,33 @@ function tryToStartGame() {
 //}
 
 function startGame() {
-    //setTimer();
-    //spawnTargetsInWaves
+    startTimer();
+    //spawnTargetsInWaves //event an timer setzen? wenn so groß dann?
     console.log("starting game");
 }
+
+
+function startTimer() {
+    timerStart = new Date().getTime();
+    window.requestAnimationFrame(updateTimer)
+}
+
+var submits = 0;
+function updateTimer() {
+    var timer = (new Date().getTime() - timerStart) / 1000;
+    var timerDiv = document.getElementById('timer');
+    timerDiv.innerHTML = timer;
+
+    if (timer >= 60.0) { //60.0
+        timerDiv.innerHTML = "Game Finished!";
+        tryToSubmitScore();
+        console.log("submits: " + submits);
+        submits++;
+        return;
+    }
+    window.requestAnimationFrame(updateTimer)
+}
+
 
 
 
