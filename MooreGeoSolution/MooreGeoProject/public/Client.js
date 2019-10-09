@@ -1,4 +1,5 @@
 window.onload = initialize;
+var myNickName = "SSIO";
 var myCurrentScore = 0;
 
 function spawnTarget() {
@@ -38,18 +39,12 @@ function firstTargetMoveType(element) {
         }
     }, intervalTimeInMS);
 }
-
+ 
 function onTargetHit(event) {
     console.log("I HIT IT! Current score: " + this.toString() +  "   " + ++myCurrentScore);
     this.parentNode.removeChild(this);
 
-    fetch('/api/score', {
-        method: 'POST', // or 'PUT'
-        body: JSON.stringify(data), // data can be `string` or {object}!
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    postScore();
 }
 
 
@@ -60,9 +55,17 @@ function initialize() {
 }
 
 
+function postScore() {
+    var jsonObj = { "nick": myNickName, "score": myCurrentScore } //maybe stringify current score?
 
-
-
+    fetch('/api/score', {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(jsonObj),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
 
 
 

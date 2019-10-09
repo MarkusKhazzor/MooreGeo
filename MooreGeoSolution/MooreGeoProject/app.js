@@ -24,11 +24,18 @@ app.get('/api/scores', (req, res) => {
 //});
 
 app.post('/api/score', function (req, res) {
-    db.get("scores")
+    //if (isScoreInTopTen(req.body.score))
+      db.get("scores")
         .push({ "nick": req.body.nick, "score": req.body.score })
         .write()
 
     res.sendStatus(201);
 });
+
+//TODO: for loop --> not write --> replace last element --> sort algorithm --> highest up!
+//function isScoreInTopTen() {
+//    db.get("scores")
+//    return true;
+//}
 
 app.listen(8080);
