@@ -1,20 +1,5 @@
-var gameloop = true;
-
-
-
 window.onload = initialize;
-
-var num = 0;
-
-function spawnTargetOLD() {
-    // object.style.animation = "name duration timingFunction delay iterationCount direction fillMode playState" 
-
-    var target = document.createElement("div");
-    target.className = "target";
-
-    target.addEventListener("click", onTargetHit);
-    document.getElementById("game").appendChild(target); //targetContainer
-}
+var myCurrentScore = 0;
 
 function spawnTarget() {
     var target = document.createElement("div");
@@ -35,9 +20,6 @@ function generateWHY(x, rnd) {
 
 
 function firstTargetMoveType(element) {
-
-    //var element = document.getElementById("test");
-
     var height = document.getElementById("game").clientHeight;
     var x = 1.0;
     var rnd = Math.random() * 50.0;
@@ -58,21 +40,23 @@ function firstTargetMoveType(element) {
 }
 
 function onTargetHit(event) {
-    console.log("I HIT IT! Current score: " + this.toString() +  "   " + ++num);
+    console.log("I HIT IT! Current score: " + this.toString() +  "   " + ++myCurrentScore);
     this.parentNode.removeChild(this);
+
+    fetch('/api/score', {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(data), // data can be `string` or {object}!
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 }
 
 
 function initialize() {
     spawnTarget();
-    //spawnTargetOLD();
 
-    document.getElementById("game").addEventListener("click", firstTargetMoveType);
-
-
-    //while (gameloop) {
-    //    setInterval(loop, 1000 / 60);
-    //}
+    //document.getElementById("game").addEventListener("click", firstTargetMoveType);
 }
 
 
@@ -86,16 +70,6 @@ function initialize() {
 
 
 
-
-
-//function loop() {
-
-//    console.log(num++);
-
-//    if (num >= 10)
-//        gameloop = false;
-
-//}
 
 function update(progress) {
     // Update the state of the world for the elapsed time since last render
@@ -152,6 +126,8 @@ function initializeAndFetchTest() {
             .then(function (data) {
                 document.write(data.scores[0].nick)
             }));
+
+    
 
     //fetch('/api/scores').
 
