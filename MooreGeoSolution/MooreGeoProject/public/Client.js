@@ -47,7 +47,8 @@ function onTargetHit(event) {
 
 
 function initialize() {
-    spawnTarget();
+    tryToStartGame();
+    //spawnTarget();
 
     //document.getElementById("game").addEventListener("click", firstTargetMoveType);
 }
@@ -66,10 +67,39 @@ function postScore() {
 }
 
 function tryToStartGame() {
-
     fetch('/api/game')
-        
+        .then((res) => {
+            if (res.status == 201)
+                startGame()
+            else
+                console.log("No game could be started")
+                });
 }
+
+//to post credentials? --> or a
+//function tryToStartGame() {
+//    fetch('/api/game',
+//    { 
+//        method: 'POST',
+//        body: null,
+//        headers: {
+//            'Content-Type': 'application/json'
+//        }
+//    })
+//    .then((res) => {
+//        if (res.status == 201)
+//            startGame()
+//        else
+//            console.log("No game could be started")
+//    });
+//}
+
+function startGame() {
+    //setTimer();
+    //spawnTargetsInWaves
+    console.log("starting game");
+}
+
 
 
     
