@@ -5,6 +5,8 @@ const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('data.json')
 const db = lowdb(adapter)
 
+const serverPort = 8080;
+
 var app = express();
 
 app.use(express.json());
@@ -58,4 +60,5 @@ app.post('/api/score', function (req, res) {
 //    return true;
 //}
 
-app.listen(8080);
+app.listen(serverPort);
+console.log(`Started server on port ${serverPort}`);

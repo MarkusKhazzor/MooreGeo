@@ -1,3 +1,31 @@
+body{
+    background-color: lightslategray;
+}
+
+#menuBar {
+    display:block;
+    padding:50px;
+    width: 1000px;
+    /*min-width: 1000px;*/
+    /*max-width: 1000px;*/
+}
+
+.menuTab {
+    /*width: 100px;*/
+    max-width: 25%;
+    padding: 30px;
+    margin: 20px;
+    background-color: papayawhip;
+    border-color: black;
+    border: outset;
+    border-width: 5px;
+    display:inline;
+}
+
+
+
+
+
 #wrapper {
     height: 90vh;
     width: 95vw;
