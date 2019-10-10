@@ -20,17 +20,20 @@ div#game {
     text-align: left;
     font-size: 200%;
     font-family: Impact;
-    padding-left: 45%; /*Hard coded --> to be improved*/
+    position: absolute; /*htmls layout wont take this element into an account when positioning other elements*/
+    display: inline; /*https://www.w3schools.com/jsref/prop_style_display.asp*/
+    /*padding-right: 45%; /*Hard coded --> can still be improved to be exactly in the middle*/
 }
 
 #centered {
-    /*padding-left: 45%; /*Hard coded --> to be improved*/
+    text-align: center;
 }
 
-#test {
-    width: 15px;
-    height: 15px;
-    background-color: aquamarine;
+#commonTarget {
+    /*width: 15px;
+    height: 15px;*/
+    /*background-color: mintcream;*/
+    background-color: chartreuse;
     position: relative;
 }
 

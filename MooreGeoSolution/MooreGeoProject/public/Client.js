@@ -5,11 +5,21 @@ var timerStart;
 
 
 function spawnTarget() {
-    var target = document.createElement("div");
-    target.id = "test";
-    target.addEventListener("click", onTargetHit);
-    document.getElementById("game").appendChild(target);
-    firstTargetMoveType(target);
+    var target = document.createElement("div"); //creation
+
+    var targetStyleWidth = 15;
+    var targetStyleHeight = 15;
+
+    target.id = "commonTarget"; //STYLE over ID in css and in js
+    target.style.width = targetStyleWidth + 'px';
+    target.style.height = targetStyleHeight + 'px';
+
+    target.addEventListener("click", onTargetHit); //clickEvent
+
+    document.getElementById("game").appendChild(target); //insertToGame
+
+    //setTargetPosition;
+    //firstTargetMoveType(target); //SetMovement and position --> setonly movement!?!?!
 }
 
 function plot(x, period, amplitude) {
@@ -30,17 +40,48 @@ function firstTargetMoveType(element) {
     var intervalTimeInMS = 5;
     var timer = 0;
 
-    var id = setInterval(() => {
-        if (timer >= 10000) {
-            clearInterval(id);
-        } else {
-            timer += intervalTimeInMS;
-            x+=0.5;
-            element.style.top = generateWHY(x, rnd) + height*0.5 + 'px';
-            element.style.left = x + 'px';
-        }
-    }, intervalTimeInMS);
+    //getRandomInt(0.0,height)
+    //element.style.top = /*generateWHY(x, rnd)+ */0.0 /** 0.5 */ + 'px'; //war height*0.5
+    //element.style.top = /*generateWHY(x, rnd)+ */height /** 0.5 */ + 'px'; //war height*0.5
+
+    element.style.left = x + 'px';
+
+    //var id = setInterval(() => {
+    //    if (timer >= 10000) {
+    //        clearInterval(id);
+    //    } else {
+    //        timer += intervalTimeInMS;
+    //        x+=0.5;
+    //        element.style.top = generateWHY(x, rnd) + height*0.5 + 'px'; //war height*0.5
+    //        element.style.left = x + 'px';
+    //    }
+    //}, intervalTimeInMS);
 }
+
+//function firstTargetMoveType(element) {
+//    var height = document.getElementById("game").clientHeight;
+//    var x = 1.0;
+//    var rnd = Math.random() * 50.0;
+
+//    var intervalTimeInMS = 5;
+//    var timer = 0;
+
+//    element.style.top = /*generateWHY(x, rnd)+ */0.0 /** 0.5 */ + 'px'; //war height*0.5
+//    //element.style.top = /*generateWHY(x, rnd)+ */height /** 0.5 */ + 'px'; //war height*0.5
+
+//    element.style.left = x + 'px';
+
+//    //var id = setInterval(() => {
+//    //    if (timer >= 10000) {
+//    //        clearInterval(id);
+//    //    } else {
+//    //        timer += intervalTimeInMS;
+//    //        x+=0.5;
+//    //        element.style.top = generateWHY(x, rnd) + height*0.5 + 'px'; //war height*0.5
+//    //        element.style.left = x + 'px';
+//    //    }
+//    //}, intervalTimeInMS);
+//}
  
 function onTargetHit(event) {
     console.log("I HIT IT! Current score: " + this.toString() +  "   " + ++myCurrentScore);
@@ -97,29 +138,40 @@ function tryToStartGame() {
 //}
 
 function startGame() {
-    startTimer();
+    startGameSessionTimer();
+    spawnMultipleTargets();
     //spawnTargetsInWaves //event an timer setzen? wenn so groﬂ dann?
     console.log("starting game");
 }
 
+function spawnMultipleTargets() {
+    var amount = getRandomInt(1,3)
 
-function startTimer() {
+    for (var i = 0; i < amount; i++) {
+        spawnTarget();
+    }
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function startGameSessionTimer() {
     timerStart = new Date().getTime();
     window.requestAnimationFrame(updateTimer)
 }
 
-var submits = 0;
 function updateTimer() {
     var timer = (new Date().getTime() - timerStart) / 1000;
     var timerDiv = document.getElementById('timer');
-    timerDiv.innerHTML = timer;
+    timerDiv.innerHTML = timer
 
     if (timer >= 60.0) { //60.0
         timerDiv.innerHTML = "Game Finished!";
         tryToSubmitScore();
-        console.log("submits: " + submits);
-        submits++;
-        return;
+        return; //just submit it once --> stop so updateTimer won`t be called again
     }
     window.requestAnimationFrame(updateTimer)
 }
