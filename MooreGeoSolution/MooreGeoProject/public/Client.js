@@ -4,6 +4,9 @@ var myNickName = "SSIO";
 var myCurrentScore = 0;
 var timerStart;
 
+//GameExtends
+var gameHeight;
+var gameWidth;
 
 function spawnTarget() {
     var target = document.createElement("div"); //creation
@@ -19,9 +22,14 @@ function spawnTarget() {
 
     document.getElementById("game").appendChild(target); //insertToGame
 
-    //setTargetPosition;
-    //firstTargetMoveType(target); //SetMovement and position --> setonly movement!?!?!
+    //setTargetSpawnPosition(target);
+    firstTargetMoveType(target); //SetMovement and position --> setonly movement!?!?!
 }
+
+//function setTargetSpawnPosition(element) {
+//    element.style.top = getRandomInt(0.0, gameHeight - 25) + 'px'; //25 --> might be the height where the target does not flow out of the gamewindow?
+//    element.style.left = getRandomInt(0.0, gameWidth - 25) + 'px';
+//}
 
 function plot(x, period, amplitude) {
     return Math.sin(x * period) * amplitude;
@@ -34,29 +42,25 @@ function generateWHY(x, rnd) {
 
 
 function firstTargetMoveType(element) {
-    var height = document.getElementById("game").clientHeight;
-    var x = 1.0;
+    var x = 0.0;
     var rnd = Math.random() * 50.0;
 
     var intervalTimeInMS = 5;
     var timer = 0;
 
-    //getRandomInt(0.0,height)
-    //element.style.top = /*generateWHY(x, rnd)+ */0.0 /** 0.5 */ + 'px'; //war height*0.5
-    //element.style.top = /*generateWHY(x, rnd)+ */height /** 0.5 */ + 'px'; //war height*0.5
+    //element.style.top = getRandomInt(0.0, gameHeight - 25) + 'px'; //25 --> might be the height where the target does not flow out of the gamewindow?
+    //element.style.left = getRandomInt(0.0, gameWidth - 25) + 'px';
 
-    element.style.left = x + 'px';
-
-    //var id = setInterval(() => {
-    //    if (timer >= 10000) {
-    //        clearInterval(id);
-    //    } else {
-    //        timer += intervalTimeInMS;
-    //        x+=0.5;
-    //        element.style.top = generateWHY(x, rnd) + height*0.5 + 'px'; //war height*0.5
-    //        element.style.left = x + 'px';
-    //    }
-    //}, intervalTimeInMS);
+    var id = setInterval(() => {
+        if (timer >= 10000) {
+            clearInterval(id);
+        } else {
+            timer += intervalTimeInMS;
+            x += 0.5;
+            element.style.top = generateWHY(x, rnd) + gameHeight * 0.5 + 'px'; //war height*0.5
+            element.style.left = x + 'px';
+        }
+    }, intervalTimeInMS);
 }
 
 //function firstTargetMoveType(element) {
@@ -91,9 +95,12 @@ function onTargetHit(event) {
 
 
 function initialize() {
-    tryToStartGame();
-    //spawnTarget();
+    //Set Variables
+    var gameExtendsDiv = document.getElementById("game");
+    var gameHeight = gameExtendsDiv.clientHeight;
+    var gameWidth = gameExtendsDiv.clientWidth;
 
+    tryToStartGame();
     //document.getElementById("game").addEventListener("click", firstTargetMoveType);
 }
 
@@ -146,7 +153,7 @@ function startGame() {
 }
 
 function spawnMultipleTargets() {
-    var amount = getRandomInt(1,3)
+    var amount = getRandomInt(1,10)
 
     for (var i = 0; i < amount; i++) {
         spawnTarget();
