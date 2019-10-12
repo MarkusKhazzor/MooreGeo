@@ -4,10 +4,10 @@ var myNickName = "SSIO";
 var myCurrentScore = 0;
 var timerStart;
 
-var minTargetSpawns = 5;
-var maxTargetSpawns = 10;
+var minTargetSpawns;
+var maxTargetSpawns;
 
-var targetSpawnChancePerFrame = 2;
+var targetSpawnChancePerFrame;
 
 //GameExtends
 var gameHeight;
@@ -24,16 +24,16 @@ function initialize() {
     console.log(`random rgb: ${r}, ${g}, ${b} `);
     console.log("tell me: " + generateCssCodeForRGBColor(hsv_to_rgb(0.5, 0.5, 0.95)));
 
+    minTargetSpawns = 5;
+    maxTargetSpawns = 10;
+
+    targetSpawnChancePerFrame = 2;
+
+
+    //START THE GAME
     tryToStartGame();
     //document.getElementById("game").addEventListener("click", firstTargetMoveType);
 }
-
-
-
-//function setTargetSpawnPosition(element) {
-//    element.style.top = getRandomInt(0.0, gameHeight - 25) + 'px'; //25 --> might be the height where the target does not flow out of the gamewindow?
-//    element.style.left = getRandomInt(0.0, gameWidth - 25) + 'px';
-//}
 
 function plot(x, period, amplitude) {
     return Math.sin(x * period) * amplitude;
@@ -56,9 +56,10 @@ function spawnTarget() {
     target.id = "commonTarget"; //STYLE over ID in css and in js
     target.style.width = targetWidth + 'px';
     target.style.height = targetHeight + 'px';
+    target.style.position = "absolute";
     target.style.backgroundColor = generateCssCodeForRGBColor(getRandomRGBValue());
 
-    target.addEventListener("click", onTargetHit); //clickEvent
+    target.addEventListener("click", onTargetHit); //clickEvent //intervall mitgeben?
 
     document.getElementById("game").appendChild(target); //insertToGame
 
@@ -73,12 +74,17 @@ function spawnTarget() {
 
     var intervalTimeInMS = 5;
 
-    //element.style.top = getRandomInt(0.0, gameHeight - 25) + 'px'; //25 --> might be the height where the target does not flow out of the gamewindow?
-    //element.style.left = getRandomInt(0.0, gameWidth - 25) + 'px';
-
     var id = setInterval(() => {
+        //not sure if this does something
+        if (target == null) {
+            clearInterval(id);
+            console.log("target dead?")
+            return;
+        }
+
         if (parseInt(target.style.left) >= gameWidth + 10 /*delete target if it moved out of the window*/) {
-            target.parentNode.removeChild(target);
+            target.remove();
+            //target.parentNode.removeChild(target); //error
             clearInterval(id);
         } else {
             x += 0.5;
@@ -88,38 +94,10 @@ function spawnTarget() {
     }, intervalTimeInMS);
 }
 
-//function firstTargetMoveType(element) {
-//    var height = document.getElementById("game").clientHeight;
-//    var x = 1.0;
-//    var rnd = Math.random() * 50.0;
-
-//    var intervalTimeInMS = 5;
-//    var timer = 0;
-
-//    element.style.top = /*generateWHY(x, rnd)+ */0.0 /** 0.5 */ + 'px'; //war height*0.5
-//    //element.style.top = /*generateWHY(x, rnd)+ */height /** 0.5 */ + 'px'; //war height*0.5
-
-//    element.style.left = x + 'px';
-
-//    //var id = setInterval(() => {
-//    //    if (timer >= 10000) {
-//    //        clearInterval(id);
-//    //    } else {
-//    //        timer += intervalTimeInMS;
-//    //        x+=0.5;
-//    //        element.style.top = generateWHY(x, rnd) + height*0.5 + 'px'; //war height*0.5
-//    //        element.style.left = x + 'px';
-//    //    }
-//    //}, intervalTimeInMS);
-//}
- 
 function onTargetHit(event) {
-    console.log("I HIT IT! Current score: " + this.toString() +  "   " + ++myCurrentScore);
-    this.parentNode.removeChild(this);
+    console.log("I HIT IT! Current score: " + this.toString() + "   " + ++myCurrentScore);
+    this.remove();
 }
-
-
-
 
 function tryToSubmitScore() {
     var scoreJsonObj = { "nick": myNickName, "score": myCurrentScore }; //maybe stringify current score?
@@ -143,24 +121,6 @@ function tryToStartGame() {
          });
 }
 
-//to post credentials? --> or a
-//function tryToStartGame() {
-//    fetch('/api/game',
-//    { 
-//        method: 'POST',
-//        body: null,
-//        headers: {
-//            'Content-Type': 'application/json'
-//        }
-//    })
-//    .then((res) => {
-//        if (res.status == 201)
-//            startGame()
-//        else
-//            console.log("No game could be started")
-//    });
-//}
-
 function startGame() {
     startGameSessionTimer();
     spawnMultipleTargets();
@@ -176,7 +136,6 @@ function spawnMultipleTargets() {
         spawnTarget();
     }
 }
-
 
 function startGameSessionTimer() {
     timerStart = new Date().getTime();
@@ -194,12 +153,11 @@ function updateTimer() {
     if (timer >= 60.0) { //60.0
         timerDiv.innerHTML = "Game Finished!";
         tryToSubmitScore();
+        tryToGetAllScores();
         return; //just submit it once --> stop so updateTimer won`t be called again
     }
     window.requestAnimationFrame(updateTimer)
 }
-
-
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -207,7 +165,20 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function tryToGetAllScores() {
+    fetch('/api/scores')
+        .then((res) => res.json() //wenn einzeiler nimmt er direkt den shit als return ansonsten mit mehreren zeilen --> return angeben
+            .then((data) => {
+                createHighscoreTable(data);
+                /*document.write(data.scores[0].nick)*/;
+            }));
+}
 
+function createHighscoreTable() {
+    console.log("created highscore table")
+
+
+}
 
 /* <Random color using HSV Color Space>  */
 
