@@ -36,7 +36,7 @@ div#game {
     align-content: center;
     align-self: center;
     margin-top: 3%;
-    background-color: red;
+    background-color: darkgray;
     
 }
 
@@ -58,7 +58,7 @@ div#game {
     height: 15px;*/
     /*background-color: mintcream;*/
     background-color: chartreuse;
-    position: relative;
+    position: absolute;
 }
 
 .target {
