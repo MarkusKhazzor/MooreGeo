@@ -182,14 +182,16 @@ function tryToGetAllScores() {
 function createHighscoreTable(data) {
     if(highscoreTable != null)
         highscoreTable.remove();
-
     highscoreTable = document.createElement("table"); //should Only exist one
+
+    //highscoreTable.style.padding = 25 + "px";
     highscoreTable.style.borderCollapse = "collapse";
     highscoreTable.style.fontFamily = "impact"
     highscoreTable.style.fontSize = 20 + "pt";
 
     for (var i = 0; i < data.scores.length; i++) {
         var newTableRow = document.createElement('tr');
+
         newTableRow.innerHTML = '<strong>' + data.scores[i].nick + '</strong>';
         highscoreTable.appendChild(newTableRow);
 
@@ -201,15 +203,6 @@ function createHighscoreTable(data) {
     document.getElementById("game").appendChild(highscoreTable);
     console.log("created highscore table")
 }
-
-
-//var tableItem = document.createElement('li');
-//tableItem.innerHTML = '<strong>' + data.scores[i].nick + '</strong>';
-//table.appendChild(tableItem);
-
-//var newTH = document.createElement('th');
-//table.rows[i].appendChild(newTH);
-//newTH.innerHTML = data.scores[i].score;
 
 /* <Random color using HSV Color Space>  */
 

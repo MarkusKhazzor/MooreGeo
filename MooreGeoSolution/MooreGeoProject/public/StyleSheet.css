@@ -73,6 +73,10 @@ div#game {
     animation-direction: alternate;
 }
 
+/*#highscoreRow{
+    padding-left: 22px;
+}*/
+
 @keyframes inSquare {
     0% {
         background-color: black;
