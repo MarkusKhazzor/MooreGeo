@@ -42,7 +42,7 @@ div#game {
 
 #timer {
     text-align: left;
-    font-size: 200%;
+    font-size: 40pt;
     font-family: Impact;
     position: absolute; /*htmls layout wont take this element into an account when positioning other elements*/
     display: inline; /*https://www.w3schools.com/jsref/prop_style_display.asp*/

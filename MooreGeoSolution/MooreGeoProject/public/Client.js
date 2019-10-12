@@ -13,6 +13,8 @@ var targetSpawnChancePerFrame;
 var gameHeight;
 var gameWidth;
 
+var highscoreTable;
+
 
 function initialize() {
     //Set Variables
@@ -126,6 +128,9 @@ function startGame() {
     spawnMultipleTargets();
     //spawnTargetsInWaves //event an timer setzen? wenn so groﬂ dann?
     console.log("starting game");
+
+    //SCORE TESTING
+    tryToGetAllScores();
 }
 
 function spawnMultipleTargets() {
@@ -174,11 +179,37 @@ function tryToGetAllScores() {
             }));
 }
 
-function createHighscoreTable() {
+function createHighscoreTable(data) {
+    if(highscoreTable != null)
+        highscoreTable.remove();
+
+    highscoreTable = document.createElement("table"); //should Only exist one
+    highscoreTable.style.borderCollapse = "collapse";
+    highscoreTable.style.fontFamily = "impact"
+    highscoreTable.style.fontSize = 20 + "pt";
+
+    for (var i = 0; i < data.scores.length; i++) {
+        var newTableRow = document.createElement('tr');
+        newTableRow.innerHTML = '<strong>' + data.scores[i].nick + '</strong>';
+        highscoreTable.appendChild(newTableRow);
+
+        var newTableDataCell = document.createElement('td');
+        highscoreTable.rows[i].appendChild(newTableDataCell);
+        newTableDataCell.innerHTML = data.scores[i].score;
+    }
+
+    document.getElementById("game").appendChild(highscoreTable);
     console.log("created highscore table")
-
-
 }
+
+
+//var tableItem = document.createElement('li');
+//tableItem.innerHTML = '<strong>' + data.scores[i].nick + '</strong>';
+//table.appendChild(tableItem);
+
+//var newTH = document.createElement('th');
+//table.rows[i].appendChild(newTH);
+//newTH.innerHTML = data.scores[i].score;
 
 /* <Random color using HSV Color Space>  */
 
@@ -300,24 +331,24 @@ function generateCssCodeForRGBColor({ r, g, b }) {
 //STUFF TO THINK ABOUT
     //var nun = (x) => x * x; --> C# tryen
 
-function initializeAndFetchTests() {
-    //fetch('/api/scores')
-    //    .then((res) => res.json()
-    //        .then((data) => document.write(JSON.stringify(data))));
+//function initializeAndFetchTests() {
+//    //fetch('/api/scores')
+//    //    .then((res) => res.json()
+//    //        .then((data) => document.write(JSON.stringify(data))));
 
-    fetch('/api/scores')
-        .then((res) => res.json() //wenn einzeiler nimmt er direkt den shit als return ansonsten mit mehreren zeilen --> return angeben
-            .then((data) => {
-                document.write(data.scores[0].nick);
-            }));
+//    fetch('/api/scores')
+//        .then((res) => res.json() //wenn einzeiler nimmt er direkt den shit als return ansonsten mit mehreren zeilen --> return angeben
+//            .then((data) => {
+//                document.write(data.scores[0].nick);
+//            }));
 
-    fetch('/api/scores')
-        .then((res) => res.json()
-            .then(function (data) {
-                document.write(data.scores[0].nick)
-            }));
+//    fetch('/api/scores')
+//        .then((res) => res.json()
+//            .then(function (data) {
+//                document.write(data.scores[0].nick)
+//            }));
 
-    function function1(data) {
-        document.write(data.scores[0].nick)
-    }
-}
+//    function function1(data) {
+//        document.write(data.scores[0].nick)
+//    }
+//}
